@@ -14,6 +14,8 @@ import coil.request.ImageRequest
 import com.example.practicecoil.databinding.ActivityGifBinding
 
 class GifActivity : AppCompatActivity() {
+
+
     private lateinit var binding: ActivityGifBinding
     private val gifUrl = "https://media.giphy.com/media/BfbUe877N4xsUhpcPc/giphy.gif"
 
@@ -22,7 +24,8 @@ class GifActivity : AppCompatActivity() {
         binding = ActivityGifBinding.inflate(layoutInflater)
         val view = binding.root
 
-        //construct ImageLoader with decoders
+        //construct ImageLoader with gif decoders
+        //ImageDecoderDecoder is much faster and provides support for animated WebP and HEIF
         val imageLoader = ImageLoader.Builder(applicationContext)
             .componentRegistry {
                 if (SDK_INT >= 28) {
@@ -31,6 +34,7 @@ class GifActivity : AppCompatActivity() {
                     add(GifDecoder())
                 }
             }
+            .memoryCachePolicy(CachePolicy.DISABLED) //Disable Cache
             .build()
 
         //sample request with error handling using target
@@ -38,7 +42,6 @@ class GifActivity : AppCompatActivity() {
             .data(gifUrl)
             .placeholder(R.drawable.placeholder)
             .error(R.drawable.error_placeholder)
-            .memoryCachePolicy(CachePolicy.DISABLED)
             .target(
                 onStart = { placeholder ->
                     //do something when waiting for result

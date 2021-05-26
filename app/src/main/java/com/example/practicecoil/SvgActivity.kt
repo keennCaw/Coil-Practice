@@ -2,13 +2,10 @@ package com.example.practicecoil
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.graphics.Insets.add
 import coil.ImageLoader
 import coil.decode.SvgDecoder
 import coil.request.ImageRequest
-import coil.transform.BlurTransformation
 import coil.transform.CircleCropTransformation
-import coil.transform.RoundedCornersTransformation
 import com.example.practicecoil.databinding.ActivitySvgBinding
 
 class SvgActivity : AppCompatActivity() {
@@ -36,6 +33,7 @@ class SvgActivity : AppCompatActivity() {
 
         //run from background thread
         imageLoader.enqueue(request)
+
 
         setContentView(view)
     }
